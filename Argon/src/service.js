@@ -6,11 +6,6 @@ const store =  [{email: "pepetukis@email.com",
                ]
 
 export default {
-
-
-verifyPassword : async(password, hash)=> {
-    return bcrypt.compare(password, hash);
-},
 userRegister: async(email, password1)=>{
   const userFound = store.find((user) =>user.email === email)
   if(userFound){const error = new Error('The user already exists'); error.status = 400; throw error}

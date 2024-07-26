@@ -13,7 +13,7 @@ const store =  [{email: "pepetukis@email.com",
                         resolve(salt + ':' + derivedKey.toString('hex'));
                     });
                 });
-            }
+                }
             
           
             function verifyPassword(password, hash) {
@@ -24,13 +24,9 @@ const store =  [{email: "pepetukis@email.com",
                         resolve(key === derivedKey.toString('hex'));
                     });
                 });
-            }
+                }
 export default {
 
-
-verifyPassword : async(password, hash)=> {
-    return bcrypt.compare(password, hash);
-},
 userRegister: async(email, password1)=>{
   const userFound = store.find((user) =>user.email === email)
   if(userFound){const error = new Error('The user already exists'); error.status = 400; throw error}
@@ -45,7 +41,6 @@ userLogin : async(email, password)=>{
  if(!userFound){const error = new Error('User not found'); error.status = 404; throw error}
  const passwordMatch = await verifyPassword(password, userFound.password);
  if(!passwordMatch){const error = new Error('Invalid password'); error.status= 400; throw error}
- return userFound
-    
+ return userFound  
 }
 }

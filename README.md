@@ -57,15 +57,14 @@ Cuando bcrypt verifica una contraseña, puede extraer la sal y el costo directam
 Esta estructura permite que bcrypt almacene toda la información necesaria para la verificación en un solo string, sin necesidad de almacenar la sal o el costo por separado. Esto simplifica el almacenamiento y la verificación de contraseñas, a la vez que mantiene un alto nivel de seguridad.
 
 # scrypt
-> Pregunta: ¿y con scrypt?
 
-Excelente pregunta. El formato de salida de scrypt es un poco diferente a bcrypt y Argon2, y no tiene un formato estándar universalmente adoptado. Sin embargo, para mantener toda la información necesaria para la verificación, generalmente se crea una cadena que incluye todos los parámetros necesarios. Aquí te muestro un formato común:
+El formato de salida de scrypt es un poco diferente a bcrypt y Argon2, y no tiene un formato estándar universalmente adoptado. Sin embargo, para mantener toda la información necesaria para la verificación, generalmente se crea una cadena que incluye todos los parámetros necesarios. Aquí te muestro un formato común:
 
 ```
 $scrypt$N=16384,r=8,p=1$salt$hash
 ```
 
-Desglosemos esto:
+Desglosamos esto:
 
 1. `$scrypt$`: Identificador del algoritmo.
 
@@ -78,7 +77,7 @@ Desglosemos esto:
 
 4. `hash`: El hash resultante, también codificado en base64.
 
-Sin embargo, es importante notar que este formato no es un estándar oficial como en el caso de bcrypt o Argon2. En el ejemplo que te proporcioné anteriormente con el módulo `crypto` de Node.js, utilizamos un formato simplificado:
+Sin embargo, es importante notar que este formato no es un estándar oficial como en el caso de bcrypt o Argon2. En el ejemplo proporcionado anteriormente con el módulo `crypto` de Node.js, utilizamos un formato simplificado:
 
 ```javascript
 salt + ':' + derivedKey.toString('hex')
@@ -86,9 +85,9 @@ salt + ':' + derivedKey.toString('hex')
 
 Donde simplemente concatenamos la sal y el hash derivado con dos puntos como separador.
 
-Cuando se usa scrypt, a menudo es responsabilidad del desarrollador decidir cómo almacenar estos parámetros junto con el hash. Podrías optar por almacenar los parámetros `N`, `r`, y `p` por separado en tu base de datos, o incluirlos en la cadena del hash de alguna manera.
+Cuando se usa scrypt, a menudo es responsabilidad del desarrollador decidir cómo almacenar estos parámetros junto con el hash. Podrías optar por almacenar los parámetros `N`, `r`, y `p` por separado en la base de datos, o incluirlos en la cadena del hash de alguna manera.
 
-Por ejemplo, podrías crear una función para generar un hash en este formato:
+Por ejemplo, podria crearse una función para generar un hash en este formato:
 
 ```javascript
 function scryptHash(password, salt, N, r, p) {
@@ -117,4 +116,4 @@ function verifyScrypt(password, fullHash) {
 }
 ```
 
-Esta aproximación te permite almacenar todos los parámetros necesarios en una sola cadena, similar a cómo funcionan bcrypt y Argon2, pero recuerda que no es un estándar oficial y deberías documentar bien tu implementación si decides usar este enfoque.
+Esta aproximación permite almacenar todos los parámetros necesarios en una sola cadena, similar a cómo funcionan bcrypt y Argon2, pero no debemos olvidar que no es un estándar oficial y deberiamos documentar bien la implementación si decidimos usar este enfoque.
