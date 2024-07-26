@@ -25,13 +25,13 @@ Vamos a desglosar esto:
 
 Esta estructura permite que Argon2 almacene toda la información necesaria para verificar la contraseña posteriormente, incluyendo la sal y los parámetros utilizados. Esto es similar a cómo bcrypt incluye la información del salt en su hash.
 
-Cuando verificas una contraseña con Argon2, el algoritmo puede extraer toda esta información del hash almacenado para recrear las mismas condiciones y verificar si la contraseña ingresada produce el mismo resultado.
+Cuando se verifica una contraseña con Argon2, el algoritmo puede extraer toda esta información del hash almacenado para recrear las mismas condiciones y verificar si la contraseña ingresada produce el mismo resultado.
 
 Esta estructura hace que los hashes de Argon2 sean autocontenidos y seguros, ya que incluyen toda la información necesaria para la verificación sin comprometer la seguridad del hash en sí.
 
 # bcrypt js
 
-Por supuesto, te mostraré cómo se ve un hash de bcrypt y explicaré sus componentes. Un hash típico de bcrypt se ve así:
+Un hash típico de bcrypt se ve así:
 
 ```
 $2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy
